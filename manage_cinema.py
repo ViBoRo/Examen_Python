@@ -49,6 +49,8 @@ class Cinema:
         for row, seat in rows_seats:
             if self.__seating[row][seat] == None:
                 total+=1
+        #solucion
+        return total
 
 #------------------------------------------- MAIN -----------------------------------------------
 cinema = Cinema(rows=10, seats_per_row=8)
@@ -63,13 +65,18 @@ cinema.print_seating()
 print("\n------------- Error 2 -----------------")
 seats = [(2,4), (3,1), (5,2)]
 total = 0
-cinema.count_free_seats(seats,total)
+total = cinema.count_free_seats(seats,total)
 print("total: "+str(total))
+#el valor de total no cambia ya que no se vincula al resultado de la funcion
+#falta devolver el total poniendo return total
+
 
 #ERROR 3: quiero modificar la butaca (2,4) de la lista anterior para que sea la (3,4) y no me deja.
 print("\n------------- Error 3 -----------------")
+seats = [[2,4], [3,1], [5,2]]
 seats[0][1]=3
 total = 0
-cinema.count_free_seats(seats,total)
+total = cinema.count_free_seats(seats,total)
 print("total: "+str(total))
-        
+#no funciona porque estas intentando modificar el valor de una tupla
+#si haces una lista de listas [[], []] ya se podria modificar
