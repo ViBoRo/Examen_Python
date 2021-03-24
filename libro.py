@@ -2,8 +2,12 @@ class Libro:
 
   def __init__(self, a, t, y):
     self.__autor = a
-    self.__titulo = e 
+    self.__titulo = t
     self.__anyo = y
 
-  def mostrar(self): #público
-    print("El nombre es ",self.nombre, " y la edad es ",self.__edad)
+
+  def get_anyo(self):
+    return self.__anyo
+
+  def get_titulo(self):
+    return self.__titulo
