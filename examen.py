@@ -1,5 +1,6 @@
 from autor import *
 from libro import *
+import unittest
 
 
 #1.-------------
@@ -39,9 +40,29 @@ def mas_antiguos(lista, anyo):
     titulos = []
     for libro in lista:
         if int(libro.get_anyo()) <= anyo:
-            titulos.append(libro.get_titulo)
+            titulos.append(libro.get_titulo())
     return titulos
     
+
+class Pruebas(unittest.TestCase):
+
+    def test_mas_antiguo(self):
+
+        libro1 = Libro("cervantes", "quixot", "1921")
+        libro2 = Libro("shakespeare", "r&j", "1955")
+        libro3 = Libro("aaa", "bbbb", "2001")
+        losLibros = [libro1, libro2, libro3]
+        libros21 = mas_antiguos(losLibros, 2000)
+        librosall = mas_antiguos(losLibros, 2021)
+        #identifcar que se filtra por anyo
+        self.assertEqual(len(libros21), 2)
+
+        #si se le pasa el anyo actual se devuelven todos
+        self.assertEqual(len(librosall), 3)
+
+        #si se da una lista vacia salta error
+        self.assertRaisesRegex(ValueError, "",  )
+
 
 
 #main---
@@ -52,11 +73,7 @@ f = open("palabras.txt", mode="rt", encoding="utf-8")
 res = get_list(f)
 print(res)
 
-#1.2.------------------
 
-libro1 = Libro("cervantes", "quixot", "1921")
-libro2 = Libro("shakespeare", "r&j", "1955")
-libro3 = Libro("aaa", "bbbb", "2001")
-losLibros = [libro1, libro2, libro3]
-libros21 = mas_antiguos(losLibros, 2000)
-print(libros21)
+
+if __name__ == "__main__":
+    unittest.main()
