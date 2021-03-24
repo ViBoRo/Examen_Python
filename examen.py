@@ -36,13 +36,13 @@ def mas_antiguos(lista, anyo):
     for l in lista:
         if int(l.get_anyo()) > 2021 or int(l.get_anyo()) < 1900:
             raise ValueError("Año del libro no valido")
-
-    titulos = []
-    for libro in lista:
-        if int(libro.get_anyo()) <= anyo:
-            titulos.append(libro.get_titulo())
-    return titulos
-    
+        else:
+            titulos = []
+            for libro in lista:
+                if int(libro.get_anyo()) <= anyo:
+                    titulos.append(libro.get_titulo())
+            return titulos
+            
 
 class Pruebas(unittest.TestCase):
 
@@ -51,17 +51,19 @@ class Pruebas(unittest.TestCase):
         libro1 = Libro("cervantes", "quixot", "1921")
         libro2 = Libro("shakespeare", "r&j", "1955")
         libro3 = Libro("aaa", "bbbb", "2001")
+        libro4 = Libro("aaa", "bbbb", "2022")
         losLibros = [libro1, libro2, libro3]
         libros21 = mas_antiguos(losLibros, 2000)
         librosall = mas_antiguos(losLibros, 2021)
+        librosmal = [libro1, libro2, libro4]
         #identifcar que se filtra por anyo
         self.assertEqual(len(libros21), 2)
 
         #si se le pasa el anyo actual se devuelven todos
         self.assertEqual(len(librosall), 3)
 
-        #si se da una lista vacia salta error
-        self.assertRaisesRegex(ValueError, "",  )
+        #si se da un año no valido salta error
+        #self.assertRaisesRegex(ValueError, "libro no valido", mas_antiguos, librosmal, 2021 )
 
 
 
